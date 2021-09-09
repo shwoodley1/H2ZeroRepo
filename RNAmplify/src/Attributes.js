@@ -1,16 +1,17 @@
-import { Auth} from 'aws-amplify';
-import React, { useEffect, useState } from 'react';
-import { Text, TextInput, View, Button } from 'react-native';
-import Home from './screens/Home';
+import { Auth } from 'aws-amplify';
+import React, { useState } from 'react';
+import { Text, TextInput, View, Button, SafeAreaView, StyleSheet } from 'react-native';
 
-export default () => {
+
+
+export default (props) => {
+  
+
   const [state, setState] = useState({
       setDevice_id: '',
-      device_id: '',
       setDevice_id_b: '',
-      device_id_b: '',
-      setUser_Id: '',
-      user_Id: ''
+      setUser_Id: ''
+      
   });
 
   async function onSubmit(){
@@ -46,28 +47,13 @@ export default () => {
                   console.log(err.messaage)
               }
           }
-
-      useEffect(() => {
-        async function fetchUser(){
-    user = await Auth.currentAuthenticatedUser();
-    //console.log("useEffect", user)
-    setState({...state, 
-      device_id: user.attributes['custom:device_id'],
-      device_id_b: user.attributes['custom:device_id_b'],
-      user_Id: user.attributes['custom:user_Id']
-  })
-  console.log(user);
-        }
-        fetchUser()
-    }, [])
-
-      
-    
+ 
      
   return (
     
-     
-    <View style={{padding: 10}}>
+     <SafeAreaView>
+       
+    <View style={styles.menuWrapper}>
       <Text> ENTER USER ID</Text>
       <TextInput
         style={{height: 20}}
@@ -115,26 +101,61 @@ export default () => {
         color="orange"
         title="Press Me"
      >  
-   </Button>
-   
-   <Text style={{padding: 10, fontSize: 10}}> 
-        Device ID
-        </Text>
-      
-      <Text style={{padding: 10, fontSize: 10}}> 
-        TANK A {state.device_id}
-        </Text>
-        <Text style={{padding: 10, fontSize: 10}}> 
-        TANK B {state.device_id_b}
-        </Text>
-        <Text style={{padding: 10, fontSize: 10}}> 
-        USER ID{state.user_Id}
-        </Text>
-        
+   </Button>    
     </View>
+    </SafeAreaView>
   );
 }
- 
+const styles = StyleSheet.create({
+  container: {
+    flex: 2,
+  },
+  userInfoSection: {
+    paddingHorizontal: 30,
+    marginBottom: 25,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  caption: {
+    fontSize: 14,
+    lineHeight: 14,
+    fontWeight: '500',
+  },
+  row: {
+    flexDirection: 'row',
+    marginBottom: 10,
+  },
+  infoBoxWrapper: {
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1,
+    borderTopColor: '#dddddd',
+    borderTopWidth: 1,
+    flexDirection: 'row',
+    height: 100,
+  },
+  infoBox: {
+    width: '50%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  menuWrapper: {
+    marginTop: 10,
+  },
+  menuItem: {
+    flexDirection: 'row',
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+  },
+  menuItemText: {
+    color: '#777777',
+    marginLeft: 20,
+    fontWeight: '600',
+    fontSize: 16,
+    lineHeight: 26,
+  },
+});
 
 
 

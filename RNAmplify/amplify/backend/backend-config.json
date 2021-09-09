@@ -6,5 +6,59 @@
 			"dependsOn": [],
 			"customAuth": false
 		}
+	},
+	"function": {
+		"layernode": {
+			"runtimes": [
+				{
+					"value": "nodejs",
+					"name": "NodeJS",
+					"layerExecutablePath": "nodejs/node_modules",
+					"cloudTemplateValue": "nodejs12.x"
+				}
+			],
+			"layerVersionMap": {
+				"1": {
+					"permissions": [
+						{
+							"type": "private"
+						}
+					]
+				}
+			},
+			"providerPlugin": "awscloudformation",
+			"service": "LambdaLayer",
+			"build": true
+		},
+		"passIDfunction": {
+			"build": true,
+			"providerPlugin": "awscloudformation",
+			"service": "Lambda",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "layernode",
+					"attributes": [
+						"Arn"
+					]
+				}
+			]
+		}
+	},
+	"api": {
+		"userIDapp": {
+			"service": "API Gateway",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [
+				{
+					"category": "function",
+					"resourceName": "passIDfunction",
+					"attributes": [
+						"Name",
+						"Arn"
+					]
+				}
+			]
+		}
 	}
 }

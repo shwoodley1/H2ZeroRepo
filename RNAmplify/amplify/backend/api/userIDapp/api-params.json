@@ -1,0 +1,34 @@
+{
+    "paths": [
+        {
+            "name": "/id",
+            "lambdaFunction": "passIDfunction",
+            "privacy": {
+                "open": true
+            }
+        }
+    ],
+    "resourceName": "userIDapp",
+    "apiName": "userIDapp",
+    "functionArns": [
+        {
+            "lambdaFunction": "passIDfunction"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-rnamplify-dev-82929-authRole",
+        "unAuthRoleName": "amplify-rnamplify-dev-82929-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "passIDfunction",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ]
+}
